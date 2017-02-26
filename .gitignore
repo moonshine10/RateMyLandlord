@@ -2,3 +2,6 @@
 venv/
 *.sh
 bower_components/
+*.pyc
+venv/
+node_modules/

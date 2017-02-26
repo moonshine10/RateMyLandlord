@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load render_bundle from webpack_loader %}
+
+{% block main %}
+<div id="maincontainer">
+</div>
+
+<script type="text/javascript" src="/static/bundles/local/vendors.js"></script>
+<script type="text/javascript" src="/static/bundles/local/bundle.js"></script>
+
+{% endblock %}
