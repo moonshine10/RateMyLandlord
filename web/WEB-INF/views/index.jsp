@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://www.springframework.org/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: saurabh
@@ -9,8 +10,11 @@
 <html>
   <head>
     <title>$Title$</title>
+      <c:url value="/static/bower_components/bootstrap/dist/css/bootstrap.css" var="bootstrapcss"></c:url>
+      <link rel="stylesheet" href="${bootstrapcss}" />
   </head>
   <body>
   Welcome, ${firstName}
+  <input type="text" class="form-control" />
   </body>
 </html>
