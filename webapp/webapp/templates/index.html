@@ -1,11 +1,117 @@
 {% extends "base.html" %}
-{% load render_bundle from webpack_loader %}
+<!-- {% load render_bundle from webpack_loader %} -->
 
 {% block main %}
-<div id="maincontainer">
+<div id="maincontainer" ng-controller="MainController as ctrl">
+    <div class="row">
+        <nav class="navbar navbar-inverse">
+            <div class="row">
+                <div class="col-md-5">
+                    <span class="header-text">RATE MY LANDLORD</span>
+                </div>
+                <div class="col-md-5">
+                    <div class="input-group">
+                        <input type="text" ng-model="ctrl.searchText" class="form-control" placeholder="Search for Landlords" id="search-box" />
+                        <span class="input-group-btn">
+                            <button ng-click="ctrl.search()" type="button" class="btn btn-default">
+                                Search!
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4 sidebar-container">
+            <ul class='list-group'>
+                <li class="list-group-item find-landlord">
+                    Find Landlord
+                </li>
+                <li class="list-group-item rate-landlord">
+                    Rate Landlord
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8 maincontent">
+            <div class="index" ng-show="ctrl.currentPage === 'index'">
+                <h1>Find or Rate Landlords</h1>
+            </div>
+            <div class="searchresults" ng-show="ctrl.currentPage === 'searchResults'">
+                <h1>Search Results</h1>
+                <ul class="list-group">
+                    <li class="list-group-item"
+                        ng-repeat="landlord in ctrl.landlords track by $index">
+                        <a ng-click="ctrl.showDetails($index)">{[{ landlord.landlord_name }]}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="addcomments" ng-show="ctrl.currentPage === 'addcomments'">
+                <h4>{[{ ctrl.currentLandlord.landlord_name }]}</h4>
+                <p>
+                    <b>Address:</b> {[{ ctrl.currentLandlord.address }]}
+                </p>
+
+                <div class="comments">
+                    <h4>Comments</h4>
+                    <ul class="list-group">
+                        <li class="list-group-item"
+                            ng-repeat="comment in ctrl.currentComments">
+                            <p>
+                                <b>Reviewer: </b> {[{ comment.reviewerName }]}
+                            </p>
+                            <p>
+                                <b>Email: </b> {[{ comment.reviewer_email }]}
+                            </p>
+                            <p>
+                                <b>Feedback: </b> {[{ comment.review_text }]}
+                            </p>
+                            <p>
+                                <b>Score: </b> {[{ comment.star_rating }]}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="feedback">
+                    <h4>Leave Feedback</h4>
+                    <form>
+                        <label for="txtName">Name</label>
+                        <input type="text" class="form-control" ng-model="ctrl.txtName" />
+
+                        <label for="txtEmail">Email Address</label>
+                        <input type="email" class="form-control" ng-model="ctrl.txtEmail"/>
+
+                        <label for="feedback">Feedback</label>
+                        <textarea class="form-control" ng-model="ctrl.feedback"></textarea>
+
+                        <label for="txtStar">Rating</label>
+                        <select ng-model="ctrl.starRating" ng-options="val for val in [1.0, 2.0, 3.0, 4.0, 5.0]">
+                            <!-- <option value="1.0" selected="selected">1.0</option>
+                            <option value="2.0">2.0</option>
+                            <option value="3.0">3.0</option>
+                            <option value="4.0">4.0</option>
+                            <option value="5.0">5.0</option> -->
+                        </select>
+
+                        <div class="row submission">
+                            <input type="reset" class="btn btn-default col-md-3"/>
+                            <button type="button" class="btn btn-success col-md-3 col-md-offset-1" ng-click="ctrl.addFeedback()">Add Feedback</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
+
+<!-- <script type="text/javascript" src="/static/bower_components/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="/static/bundles/local/vendors.js"></script>
-<script type="text/javascript" src="/static/bundles/local/bundle.js"></script>
+<script type="text/javascript" src="/static/bundles/local/bundle.js"></script> -->
 
 {% endblock %}

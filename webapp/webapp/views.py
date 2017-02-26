@@ -3,6 +3,7 @@ from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
 from app.models import Landlord, Review
+import json
 
 
 def index_view(request):
@@ -29,8 +30,13 @@ def search_landlords(request):
 def landlord_info(request, landlord_id):
     # get only the info for the particular ID
     landlord_object = Landlord.objects.get(id=landlord_id)
+
+    comments = Review.objects.filter(landlord=landlord_object)
+    comments_list = [comment.as_json() for comment in comments]
+
     return JsonResponse({
-        'landlord': landlord_object.as_json()
+        'landlord': landlord_object.as_json(),
+        'comments': comments_list
     })
 
 
@@ -50,10 +56,12 @@ def get_comments_for_landlord(request, landlord_id):
 
 @csrf_exempt
 def add_comment(request, landlord_id):
-    reviewer_name = request.POST.get('reviewerName')
-    reviewer_email = request.POST.get('reviewerEmail')
-    review_text = request.POST.get('reviewText')
-    star_rating = request.POST.get('starRating')
+    params = json.loads(request.body)['params']
+    reviewer_name = params['reviewerName']
+    # print reviewer_name
+    reviewer_email = params['reviewerEmail']
+    review_text = params['reviewText']
+    star_rating = params['starRating']
 
     # get the landlord object
     landlord = Landlord.objects.get(id=landlord_id)

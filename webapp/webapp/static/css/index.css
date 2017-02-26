@@ -1,3 +1,7 @@
+.row {
+    padding-left: 15px;
+}
+
 .header-text {
     color: white;
     font-size: 24;
@@ -26,4 +30,8 @@
 .find-landlord {
     background-color: purple;
     color: white;
+}
+
+.submission {
+    margin-top: 20px;
 }
