@@ -24,3 +24,11 @@ def search_landlords(request):
     return JsonResponse({
         'landlords': items
     })
+
+@csrf_exempt
+def landlord_info(request, landlord_id):
+    # get only the info for the particular ID
+    landlord_object = Landlord.objects.get(id=landlord_id)
+    return JsonResponse({
+        'landlord': landlord_object.as_json()
+    })
