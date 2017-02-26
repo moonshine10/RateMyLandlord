@@ -1,0 +1,11 @@
+{
+  "name": "static",
+  "homepage": "https://github.com/moonshine10/RateMyLandlord",
+  "authors": [
+    "Saurabh Sood <saurabhsood91@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true
+}

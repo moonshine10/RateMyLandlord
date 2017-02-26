@@ -9,12 +9,20 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>Rate my Landlord</title>
       <c:url value="/static/bower_components/bootstrap/dist/css/bootstrap.css" var="bootstrapcss"></c:url>
+      <c:url value="/static/bundles/local/bundle.js" var="bundle"></c:url>
+      <c:url value="/static/bundles/local/vendors.js" var="vendors"></c:url>
+      <c:url value="/static/css/index.css" var="css"></c:url>
       <link rel="stylesheet" href="${bootstrapcss}" />
+      <link rel="stylesheet" href="${css}">
   </head>
   <body>
-  Welcome, ${firstName}
-  <input type="text" class="form-control" />
+  <div id="maincontainer">
+
+  </div>
+  <script src="${vendors}"></script>
+  <script src="${bundle}"></script>
+
   </body>
 </html>
