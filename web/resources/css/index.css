@@ -7,3 +7,23 @@
 .search-bar {
     float: right;
 }
+
+.header {
+    height:70px;
+}
+
+.sidebar-container {
+    height: 100%;
+    width: 100px;
+    background-color: black;
+}
+
+.rate-landlord {
+    background-color: purple;
+    color: white;
+}
+
+.find-landlord {
+    background-color: purple;
+    color: white;
+}
