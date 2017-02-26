@@ -1,2 +1,4 @@
 *.pem
 venv/
+*.sh
+bower_components/
