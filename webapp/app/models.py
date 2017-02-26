@@ -35,3 +35,12 @@ class Review(models.Model):
         'Landlord',
         on_delete=models.CASCADE
     )
+
+    def as_json(self):
+        return dict(
+            reviewer_name=self.reviewer_name,
+            reviewer_email=self.reviewer_email,
+            review_text=self.review_text,
+            star_rating=self.star_rating,
+            landlord=self.landlord.as_json()
+        )

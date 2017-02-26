@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Q
-from app.models import Landlord
+from app.models import Landlord, Review
 
 
 def index_view(request):
@@ -31,4 +31,43 @@ def landlord_info(request, landlord_id):
     landlord_object = Landlord.objects.get(id=landlord_id)
     return JsonResponse({
         'landlord': landlord_object.as_json()
+    })
+
+
+@csrf_exempt
+def get_comments_for_landlord(request, landlord_id):
+    # get the landlord object
+    landlord = Landlord.objects.get(id=landlord_id)
+    print landlord
+    comments = Review.objects.filter(landlord=landlord)
+    print comments
+
+    comment_list = [comment.as_json() for comment in comments]
+
+    return JsonResponse({
+        'comments': comment_list
+    })
+
+@csrf_exempt
+def add_comment(request, landlord_id):
+    reviewer_name = request.POST.get('reviewerName')
+    reviewer_email = request.POST.get('reviewerEmail')
+    review_text = request.POST.get('reviewText')
+    star_rating = request.POST.get('starRating')
+
+    # get the landlord object
+    landlord = Landlord.objects.get(id=landlord_id)
+
+    # create the Review object
+    review = Review.objects.create(
+        reviewer_name=reviewer_name,
+        reviewer_email=reviewer_email,
+        review_text=review_text,
+        star_rating=star_rating,
+        landlord=landlord
+    )
+
+    review.save()
+    return JsonResponse({
+        'review': review.as_json()
     })
